@@ -26,9 +26,17 @@ public class main {
         Matcher m = p.matcher(s);
         while (m.find())
         {
+            System.out.println("Match started");
             long number = Long.parseLong(m.group());
-            if (number < 100) m.replaceAll(NumbersToWords.convertLessThanOneThousand((int) number));
-            else m.replaceAll(NumbersToWords.convert(number));
+
+            s = s.replace(m.group(), NumbersToWords.convert(number));
+
+            try (FileWriter writer = new FileWriter("C://Users//Student//IdeaProjects//regexp_lab//newtext.txt")) {
+                writer.write(s);
+                writer.flush();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }
